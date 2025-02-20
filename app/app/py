@@ -1,0 +1,42 @@
+from flask import Flask
+from config.settings import Config  # Loads configurations from settings.py
+from routes.auth import auth_bp  # Authentication routes (login, signup, password reset)
+from routes.user import user_bp  # User management routes (role assignment, activation)
+from config.db_config import init_db  # Initializes database connection
+
+def create_app():
+    """
+    Initializes and configures the Flask application.
+    
+    Sections that may require updates:
+    - `Config` (Update settings in `config/settings.py` for DB credentials, JWT secret, etc.)
+    - `Blueprint Registration` (If adding new route modules, register them here)
+    - `CORS Policy` (If needed for frontend integration, add CORS configuration here)
+    """
+    app = Flask(__name__)
+    app.config.from_object(Config)  # Load app settings
+
+    # 🔹 (Optional) Enable CORS if frontend needs API access from different origins
+    # from flask_cors import CORS
+    # CORS(app, resources={r"/*": {"origins": "*"}})
+
+    # Register Blueprints (API Routes)
+    app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(user_bp, url_prefix="/users")
+
+    # Initialize Database
+    init_db()
+
+    return app
+
+if __name__ == "__main__":
+    """
+    Runs the Flask app.
+    
+    ⚠️ Update if deploying:
+    - Set `debug=False` in production.
+    - Change `host` to match your deployment environment (default: localhost).
+    - Adjust `port` if necessary.
+    """
+    app = create_app()
+    app.run(host="0.0.0.0", port=5000, debug=True)  # Change host/port as needed
