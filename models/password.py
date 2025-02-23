@@ -162,3 +162,45 @@ def update_pass(user_id, new_pass):
     cursor.execute(f"UPDATE Passwords SET past_password='{list_str}' WHERE user_id='{user_id}'")
 
     return True
+
+# Method that takes in the form data for the 'forgot password' screen
+# Returns false if given invalid inputs and the security question for the given user if valid
+def forgot_pass(form_data):
+    # Check if username and email match a user
+    user = get_user(form_data.username)
+
+    if not user:
+        # User not found, display error message
+        return False
+    
+    if not user.email == form_data.email:
+        # Email given is incorrect, display error message
+        return False
+
+    cursor.execute(f"SELECT * FROM Security_Questions WHERE user_id='{user.user_id}'")
+    question_row = cursor.fetchone()
+
+    if question_row == None:
+        # Given user doesn't exist in security question table, raise some sort of exception
+        return False
+
+    return question_row.question
+
+# Method that takes in a username and an answer for their security question
+# Returns whether or not the answer was correct
+def security_question(username, answer):
+    # Check if username and email match a user
+    user = get_user(username)
+
+    if not user:
+        # User not found, display error message
+        return False
+
+    cursor.execute(f"SELECT * FROM Security_Questions WHERE user_id='{user.user_id}'")
+    question_row = cursor.fetchone()
+
+    if question_row == None:
+        # Given user doesn't exist in security question table, raise some sort of exception
+        return False
+
+    return question_row.answer == answer
