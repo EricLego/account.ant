@@ -7,9 +7,9 @@ class User(Base):
     User model representing application users.
 
     To do:
-    1. Ensure the database is properly connected (`init_db()` in `db_config.py`).
-    2. Always hash passwords before storing them.
-    3. Verify that role options match application requirements.
+    1. Ensure the database is properly connected (`init_db()` in `db_config.py`). Might need more fixing.
+    2. Always hash passwords before storing them. password hash func made
+    3. Verify that role options match application requirements. role options needed
     """
     __tablename__ = "users"
 
