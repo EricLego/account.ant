@@ -11,6 +11,7 @@ def view_users():
     for row in cursor.fetchall(): 
         print(row)
     cursor.close()
+    connect.close()
     
 #Create new user/assign their role
 def create_user(user_id, first_name, last_name, birth_date, email, hire_date, role, status):
@@ -19,6 +20,7 @@ def create_user(user_id, first_name, last_name, birth_date, email, hire_date, ro
     cursor.execute(query, (user_id, first_name, last_name, birth_date, email, hire_date, role, status))
     connect.commit()
     cursor.close()
+    connect.close()
 
 #Delete user 
 def delete_user(user_id):
@@ -27,6 +29,7 @@ def delete_user(user_id):
     cursor.execute(query, (user_id))
     connect.commit()
     cursor.close()
+    connect.close()
 
 #Change status or activate/deactivate
 def change_status(status, user_id):
@@ -35,6 +38,7 @@ def change_status(status, user_id):
     cursor.execute(query, (status, user_id))
     connect.commit()
     cursor.close()
+    connect.close()
 
 #View past passwords
 def view_expired_passwords():
@@ -43,6 +47,5 @@ def view_expired_passwords():
     for row in cursor.fetchall():
         print(row)
     cursor.close()
+    connect.close()
 
-#Have to close db connection
-connect.close()
