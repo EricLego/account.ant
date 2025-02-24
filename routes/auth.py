@@ -11,7 +11,7 @@ auth_bp = Blueprint('auth', __name__)
 users = {
     "user@example.com": {
         "password": "hashed_password",  # Replace with actual hashed password
-        "name": "John Doe"
+        "name": "Eric Legos"
     }
 }
 
