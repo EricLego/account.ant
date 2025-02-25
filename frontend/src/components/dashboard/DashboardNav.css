@@ -1,0 +1,74 @@
+.dashboard-nav {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-right: 1px solid #eee;
+  }
+  
+  .nav-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .brand-logo {
+    width: auto;
+    max-width: 140px;
+    height: auto;
+  }
+  
+  /* NAV LINKS */
+  .nav-links {
+    padding: 10px 0;
+  }
+  
+  .nav-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  
+  .nav-item:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .nav-icon {
+    margin-right: 10px;
+    font-size: 1.1rem;
+  }
+  
+  /* FOOTER / LOGOUT */
+  .nav-footer {
+    margin-top: auto;
+    padding: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+  }
+  
+  .logout-btn {
+    background-color: #b61913;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+  }
+  
+  .logout-btn:hover {
+    background-color: #9f1611;
+  }
+  
