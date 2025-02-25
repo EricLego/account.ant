@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   // hardcoded testing
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -28,7 +28,7 @@ const Login = () => {
 
   // commeting this section out for now until API updated
   /*
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -54,7 +54,7 @@ const Login = () => {
       <img className="auth-logo" src="/accountantlogo.png" alt="Logo"/>
         <p className="auth-subtitle">Welcome back! Log in to continue.</p>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <form className="auth-form" onSubmit={handleLogin}>
+        <form className="auth-form" onSubmit={handleSubmit}>
           <input
               type="email"
               placeholder="Your Email"
