@@ -15,9 +15,22 @@ const Login = () => {
     e.preventDefault();
     setError("");
 
-    if (email === "test@accountant.com" && password === "colony") {
-      const token = "dummy-token-123";
+    if (email === "regular@accountant.com" && password === "colony") {
+      const token = "dummy-token-regular";
       localStorage.setItem("token", token);
+      localStorage.setItem("role", "Regular User");
+      alert("Login successful");
+      navigate("/dashboard");
+    } else if (email === "manager@accountant.com" && password === "colony") {
+      const token = "dummy-token-manager";
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", "Manager");
+      alert("Login successful");
+      navigate("/dashboard");
+    } else if (email === "admin@accountant.com" && password === "colony") {
+      const token = "dummy-token-admin";
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", "Administrator");
       alert("Login successful");
       navigate("/dashboard");
     } else {
