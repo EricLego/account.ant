@@ -85,7 +85,7 @@ const Login = () => {
           <button type="submit" className="auth-button">Login</button>
         </form>
         <p className="auth-footer">
-          Don't have an account? <a href="/signup" className="auth-link">Sign Up</a>
+          Don't have an account? <a href="/signup" className="auth-link">Request Access</a>
         </p>
         <div className="auth-divider">
           <span>or</span>
