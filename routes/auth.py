@@ -1,21 +1,12 @@
 from flask import Blueprint, request, jsonify
-from werkzeug.security import check_password_hash
+from config.db_config import get_db_connection
+from models.user import User
 import jwt
 import datetime
-
-# Werkzeug security is used for password hashing and checking. Might replace.
+from werkzeug.security import check_password_hash
 
 auth_bp = Blueprint('auth', __name__)
-
-# Mock user data for demonstration purposes
-users = {
-    "user@example.com": {
-        "password": "hashed_password",  # Replace with actual hashed password
-        "name": "Eric Legos"
-    }
-}
-
-SECRET_KEY = 'your_secret_key'  # Replace with your actual secret key
+SECRET_KEY = "your_secret_key"
 
 @auth_bp.route('/auth/login', methods=['POST'])
 def login():
@@ -26,14 +17,23 @@ def login():
     if not email or not password:
         return jsonify({"message": "Email and password are required"}), 400
 
-    user = users.get(email)
-    if user and check_password_hash(user['password'], password):
-        token = jwt.encode({
-            'sub': email,
-            'name': user['name'],
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
-        }, SECRET_KEY, algorithm='HS256')
+    db = get_db_connection()
+    user = db.query(User).filter_by(email=email).first()
+    
+    if not user or not user.verify_password(password):
+        db.close()
+        return jsonify({"message": "Invalid credentials"}), 401
 
-        return jsonify({"token": token})
+    if not user.status:  # Check `status` instead of `is_active`
+        db.close()
+        return jsonify({"message": "Account is suspended"}), 403
 
-    return jsonify({"message": "Invalid credentials"}), 401
+    token = jwt.encode({
+        'sub': user.email,
+        'name': f"{user.first_name} {user.last_name}",
+        'role': user.role,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+    }, SECRET_KEY, algorithm='HS256')
+
+    db.close()
+    return jsonify({"token": token, "role": user.role, "name": f"{user.first_name} {user.last_name}"})
