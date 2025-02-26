@@ -10,7 +10,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Default route redirects to login */}
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

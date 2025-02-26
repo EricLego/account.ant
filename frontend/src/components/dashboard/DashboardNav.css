@@ -20,7 +20,6 @@
     height: auto;
   }
   
-  /* NAV LINKS */
   .nav-links {
     padding: 10px 0;
   }
@@ -49,7 +48,6 @@
     font-size: 1.1rem;
   }
   
-  /* FOOTER / LOGOUT */
   .nav-footer {
     margin-top: auto;
     padding: 20px;

@@ -22,12 +22,10 @@ const DashboardNav = () => {
 
   return (
     <aside className="dashboard-nav">
-      {/* BRAND / LOGO AREA */}
       <div className="nav-brand">
         <img className="brand-logo" src="/accountantlogo.png" alt="Logo"/>
       </div>
 
-      {/* NAV LINKS */}
       <nav className="nav-links">
         <ul>
           <li>
@@ -39,7 +37,6 @@ const DashboardNav = () => {
             </a>
           </li>
 
-          {/* Manager or Administrator only */}
           {(role === "Manager" || role === "Administrator") && (
             <li>
               <a href="/reports" className="nav-item">
@@ -51,7 +48,6 @@ const DashboardNav = () => {
             </li>
           )}
 
-          {/* Administrator only */}
           {role === "Administrator" && (
             <li>
               <a href="/user-management" className="nav-item">
@@ -82,7 +78,6 @@ const DashboardNav = () => {
         </ul>
       </nav>
 
-      {/* FOOTER / LOGOUT */}
       <div className="nav-footer">
         <button onClick={handleLogout} className="logout-btn">
           <span>Logout</span>
