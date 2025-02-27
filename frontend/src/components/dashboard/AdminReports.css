@@ -49,7 +49,7 @@
     font-size: 0.9rem;
   }
   
-  /* Table for Expired Passwords */
+  /* expired passwords */
   .users-table {
     width: 100%;
     border-collapse: collapse;
@@ -68,7 +68,7 @@
     font-weight: bold;
   }
   
-  /* Forms */
+  /* forms */
   .suspend-form,
   .email-form {
     display: flex;
