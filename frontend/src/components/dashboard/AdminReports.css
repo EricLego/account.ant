@@ -1,0 +1,112 @@
+.admin-reports-container {
+    padding: 20px;
+    background-color: #f5f6f8;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .admin-reports-container h2 {
+    color: #333;
+  }
+  
+  .report-section {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .report-section h3 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  /* User Report Section */
+  .user-report {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .user-card {
+    background-color: #fafafa;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    width: 200px;
+  }
+  
+  .user-name {
+    font-weight: bold;
+    margin: 0 0 5px 0;
+  }
+  
+  .user-email,
+  .user-role,
+  .user-status {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  
+  /* expired passwords */
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .users-table th,
+  .users-table td {
+    padding: 10px;
+    border: 1px solid #eee;
+    text-align: left;
+  }
+  
+  .users-table th {
+    background-color: #fafafa;
+    font-weight: bold;
+  }
+  
+  /* forms */
+  .suspend-form,
+  .email-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .suspend-form select,
+  .suspend-form input,
+  .email-form select,
+  .email-form input,
+  .email-form textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+  }
+  
+  .suspend-form button,
+  .email-form button {
+    background-color: #b61913;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1 0 100px;
+  }
+  
+  .suspend-form button:hover,
+  .email-form button:hover {
+    background-color: #9f1611;
+  }
+  
+  .email-status {
+    margin-top: 10px;
+    color: green;
+    font-weight: bold;
+  }
+  
