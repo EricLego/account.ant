@@ -29,7 +29,7 @@ const DashboardNav = () => {
       <nav className="nav-links">
         <ul>
           <li>
-            <a href="/dashboard" className="nav-item">
+            <a href="/home" className="nav-item">
               <span className="nav-icon">
                 <FaHome />
               </span>
@@ -37,26 +37,25 @@ const DashboardNav = () => {
             </a>
           </li>
 
-          {(role === "Manager" || role === "Administrator") && (
-            <li>
-              <a href="/reports" className="nav-item">
-                <span className="nav-icon">
-                  <BiSolidReport />
-                </span>
-                <span>Reports</span>
-              </a>
-            </li>
-          )}
-
           {role === "Administrator" && (
+            <>
             <li>
               <a href="/user-management" className="nav-item">
                 <span className="nav-icon">
-                  <FaUsersCog />
+                  <FaUsersCog/>
                 </span>
                 <span>User Management</span>
               </a>
             </li>
+            <li>
+              <a href="/admin-reports" className="nav-item">
+                <span className="nav-icon">
+                  <BiSolidReport />
+                </span>
+                <span>Admin Reports</span>
+              </a>
+            </li>
+          </>
           )}
 
           <li>
