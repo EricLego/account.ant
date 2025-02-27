@@ -9,6 +9,7 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -41,7 +42,6 @@ const ResetPassword = () => {
     <div className="auth-container">
       <div className="auth-card">
         <h2 className="auth-title">Reset Your Password</h2>
-        <p className="auth-subtitle">Enter your old password and your new password below.</p>
         {message && <p style={{ color: "green" }}>{message}</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
         <form className="auth-form" onSubmit={handleSubmit}>

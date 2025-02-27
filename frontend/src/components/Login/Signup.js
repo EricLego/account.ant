@@ -71,7 +71,6 @@ const Signup = () => {
         password,
       });
       setMessage("Signup request submitted! An email has been sent to the administrator for approval.");
-      // Optionally clear the form fields or navigate to login after a delay.
     } catch (err) {
       console.error(err);
       setError("Failed to submit signup request. Please try again.");
