@@ -1,10 +1,11 @@
 from flask import Flask
+from flask_cors import CORS
 from app.routes.ui_mock_routes import ui_mock_bp
 
 app = Flask(__name__)
-app.config["MOCK_MODE"] = True  # Enable mock mode
+CORS(app)  # Allow cross-origin requests from React
 
-# Register blueprint without a prefix so routes like '/login' are accessible directly.
+# Register blueprint so endpoints match the ones in your React code
 app.register_blueprint(ui_mock_bp)
 
 if __name__ == "__main__":

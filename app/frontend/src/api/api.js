@@ -1,35 +1,58 @@
-import axios from "axios";
+// src/api/api.js
+import axios from 'axios';
 
-// Base API URL (Change this to match Flask backend)
-const API_URL = "http://localhost:5000/api";
+const API_BASE_URL = 'http://127.0.0.1:5000'; // Adjust if needed
 
-// Create Axios instance
-const api = axios.create({
-  baseURL: API_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+export const signupRequest = (userData) => {
+  return axios.post(`${API_BASE_URL}/auth/signup-request`, userData);
+};
 
-// Attach JWT token to every request
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+export const approveUser = (approvalData) => {
+  return axios.post(`${API_BASE_URL}/admin/approve_user`, approvalData);
+};
 
-// Handle errors globally
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Redirect to login if unauthorized
-      window.location.href = "/login";
-    }
-    return Promise.reject(error);
-  }
-);
+export const login = (credentials) => {
+  return axios.post(`${API_BASE_URL}/auth/login`, credentials);
+};
 
-export default api;
+export const forgotPassword = (data) => {
+  return axios.post(`${API_BASE_URL}/auth/forgot-password`, data);
+};
+
+export const updatePassword = (data) => {
+  return axios.post(`${API_BASE_URL}/auth/update-password`, data);
+};
+
+export const updateUser = (userData) => {
+  return axios.post(`${API_BASE_URL}/admin/update_user`, userData);
+};
+
+export const suspendUser = (data) => {
+  return axios.post(`${API_BASE_URL}/admin/suspend_user`, data);
+};
+
+export const viewUsers = () => {
+  return axios.get(`${API_BASE_URL}/admin/view_users`);
+};
+
+export const reportExpiredPasswords = () => {
+  return axios.get(`${API_BASE_URL}/admin/report_expired_passwords`);
+};
+
+export const sendEmail = (data) => {
+  return axios.post(`${API_BASE_URL}/admin/send_email`, data);
+};
+
+// Default export so you can import it as 'api'
+export default {
+  signupRequest,
+  approveUser,
+  login,
+  forgotPassword,
+  updatePassword,
+  updateUser,
+  suspendUser,
+  viewUsers,
+  reportExpiredPasswords,
+  sendEmail,
+};
