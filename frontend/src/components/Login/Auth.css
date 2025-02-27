@@ -91,4 +91,22 @@
     font-weight: bold;
     white-space: nowrap;
   }
+
+  .incomplete {
+    border-color: red;
+  }
+  
+  .field-error {
+    color: red;
+    font-size: 0.8rem;
+    margin: 0 0 5px 0;
+  }
+  
+  .password-requirements {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0 0 15px 0;
+    text-align: center;
+  }
+  
   
