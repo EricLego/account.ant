@@ -32,7 +32,7 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("role", "Administrator");
       alert("Login successful");
-      navigate("/dashboard");
+      navigate("/home");
     } else {
       setError("Invalid credentials. Please try again.");
     }
@@ -53,7 +53,7 @@ const Login = () => {
       const token = response.data.token;
       localStorage.setItem("token", token);
       alert("Login successful");
-      navigate("/dashboard");
+      navigate("/home");
     } catch (err) {
       console.error(err);
       setError("Invalid credentials. Please try again.");

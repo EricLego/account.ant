@@ -8,7 +8,7 @@ const Home = () => {
     <div className="home-layout">
       <DashboardNav />
       <div className="home-main">
-        <TopBar />
+      <TopBar title="Home" />
         <div className="home-content">
           <p style={{ color: "#999" }}>Welcome to the Dashboard!</p>
         </div>
