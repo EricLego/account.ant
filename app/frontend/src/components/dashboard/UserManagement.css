@@ -1,0 +1,79 @@
+.user-management-container {
+  padding: 20px;
+  background-color: #f5f6f8;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2, h3 {
+  color: #333;
+}
+
+.create-user-form, .user-list {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.create-user-form form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.create-user-form input,
+.create-user-form select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.create-user-form button {
+  background-color: #b61913;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-user-form button:hover {
+  background-color: #9f1611;
+}
+
+.user-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-list th,
+.user-list td {
+  padding: 10px;
+  border: 1px solid #eee;
+  text-align: left;
+}
+
+.user-list th {
+  background-color: #fafafa;
+}
+
+.user-list tr:hover {
+  background-color: #f9f9f9;
+}
+
+.user-list button {
+  background-color: #b61913;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.user-list button:hover {
+  background-color: #9f1611;
+}
