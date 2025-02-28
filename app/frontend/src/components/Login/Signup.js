@@ -1,3 +1,4 @@
+// src/components/Login/Signup.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -62,7 +63,7 @@ const Signup = () => {
     }
     
     try {
-      const response = await axios.post("http://localhost:5000/auth/signup-request", {
+      const response = await axios.post("/auth/signup-request", {
         firstName,
         lastName,
         address,

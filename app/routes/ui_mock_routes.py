@@ -2,7 +2,7 @@
 import re
 import bcrypt
 import datetime
-import uuid  # We'll generate a mock token using UUID
+import uuid
 from flask import Blueprint, request, jsonify
 
 ui_mock_bp = Blueprint("ui_mock", __name__)

@@ -1,3 +1,4 @@
+// src/components/Login/ForgotPassword.js
 import React, { useState } from "react";
 import axios from "axios";
 import "./Auth.css";
@@ -13,7 +14,7 @@ const ForgotPassword = () => {
     setMessage("");
 
     try {
-      const response = await axios.post("http://localhost:5000/auth/forgot-password", {
+      const response = await axios.post("/auth/forgot-password", {
         email,
       });
       setMessage("Reset link sent! Check your email.");
