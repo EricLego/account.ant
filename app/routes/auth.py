@@ -8,7 +8,7 @@ import os
 
 auth_bp = Blueprint('auth', __name__)
 
-# Load SECRET_KEY from .env
+# Load SECRET_KEY from environment variables
 SECRET_KEY = os.getenv("SECRET_KEY", "your_secret_key")
 
 @auth_bp.route('/auth/login', methods=['POST'])

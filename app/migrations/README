@@ -1,1 +1,21 @@
-Single-database configuration for Flask.
+# Migrations
+
+This directory contains Alembic migration scripts used to manage database schema changes in the application.
+
+## Files Overview
+
+- **alembic.ini**  
+  Contains the basic Alembic configuration. Note that the `sqlalchemy.url` is intentionally left blank because it is dynamically set by `env.py` based on the Flask application's configuration.
+
+- **env.py**  
+  Integrates Alembic with Flask-Migrate. It dynamically retrieves the SQLAlchemy engine and metadata from the Flask application, ensuring that migrations run against the correct database. This file supports both offline and online migration modes.
+
+- **script.py.mako**  
+  The Mako template used to generate new migration scripts. This file defines the structure for migration files, including the `upgrade()` and `downgrade()` functions.
+
+## Usage
+
+- **Generating a Migration**  
+  Run the following command to autogenerate a new migration script based on model changes:
+  ```bash
+  flask db migrate -m "Describe your changes"

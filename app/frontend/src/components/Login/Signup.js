@@ -1,7 +1,7 @@
 // src/components/Login/Signup.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api/api"; // Use centralized API module
 import "./Auth.css";
 
 const Signup = () => {
@@ -46,13 +46,13 @@ const Signup = () => {
       errors.address = "Please enter a valid address (must include a street number)";
     }
     
-    // validate pass req.
+    // validate password requirements
     const passwordRegex = /^[A-Za-z](?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{7,}$/;
     if (password && !passwordRegex.test(password)) {
       errors.password = "Password must be at least 8 characters, start with a letter, and include a letter, a number, and a special character.";
     }
     
-    // validate confirmPassword == password.
+    // validate that passwords match
     if (password && confirmPassword && password !== confirmPassword) {
       errors.confirmPassword = "Passwords do not match";
     }
@@ -63,7 +63,7 @@ const Signup = () => {
     }
     
     try {
-      const response = await axios.post("/auth/signup-request", {
+      await api.signupRequest({
         firstName,
         lastName,
         address,

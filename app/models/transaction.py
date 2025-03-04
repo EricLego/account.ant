@@ -7,10 +7,12 @@ class Transaction(db.Model):
 
     transaction_id = Column(Integer, primary_key=True, autoincrement=True)
     account_no = Column(Integer, ForeignKey("accounts.account_no"), nullable=False)
-    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
-    datetime = Column(DateTime, nullable=False)
+    user_id = Column(Integer, ForeignKey("Users.user_id"), nullable=False)
+    transaction_datetime = Column(DateTime, nullable=False)  # renamed to avoid conflict with datetime module
     amount = Column(Numeric(10, 2), nullable=False)
 
-    # Simple relationship references
     user = db.relationship("User", back_populates="transactions")
     account = db.relationship("Account", back_populates="transactions")
+
+    def __repr__(self):
+        return f"<Transaction {self.transaction_id}: Amount {self.amount}>"

@@ -1,17 +1,19 @@
 import pytest
-from app import app
-#from models.password import hash_pass
+from app import create_app
 
 @pytest.fixture
 def client():
+    # Although we have a global fixture, this redefinition is optional.
+    # Prefer using the conftest.py fixture to avoid duplication.
+    app = create_app()
     app.config["TESTING"] = True
-    client = app.test_client()
-    yield client
+    with app.test_client() as client:
+        yield client
 
 def test_login_success(client):
     """Test login with valid credentials."""
-    # First, create a user
-    client.post(
+    # First, create a user via the production endpoint
+    create_response = client.post(
         "/user/create",
         json={
             "first_name": "Eric",
@@ -21,33 +23,41 @@ def test_login_success(client):
             "role": 1
         }
     )
+    assert create_response.status_code == 201
 
-    # Then, try logging in
+    # Then, try logging in using 'email' as the key
     response = client.post(
         "/auth/login",
-        json={"username": "validuser@example.com", "password": "securepassword"}
+        json={"email": "validuser@example.com", "password": "securepassword"}
     )
     assert response.status_code == 200
-    assert "access_token" in response.json
-    assert "refresh_token" in response.json
+    # Expect keys based on your auth route implementation.
+    # For example, your route returns "token", "role", and "name".
+    json_data = response.get_json()
+    assert "token" in json_data
+    assert "role" in json_data
+    assert "name" in json_data
 
 def test_login_invalid_password(client):
     """Test login with an invalid password."""
     response = client.post(
         "/auth/login",
-        json={"username": "validuser@example.com", "password": "wrongpassword"}
+        json={"email": "validuser@example.com", "password": "wrongpassword"}
     )
     assert response.status_code == 401
-    assert response.json["message"] == "Invalid username or password"
+    # Adjust the assertion to check the error key.
+    json_data = response.get_json()
+    assert json_data.get("error") == "Invalid email or password"
 
 def test_login_nonexistent_user(client):
     """Test login with a non-existent user."""
     response = client.post(
         "/auth/login",
-        json={"username": "doesnotexist@example.com", "password": "irrelevant"}
+        json={"email": "doesnotexist@example.com", "password": "irrelevant"}
     )
     assert response.status_code == 401
-    assert response.json["message"] == "Invalid username or password"
+    json_data = response.get_json()
+    assert json_data.get("error") == "Invalid email or password"
 
 def test_token_validation(client):
     """Test that an invalid token fails authentication."""
@@ -55,5 +65,8 @@ def test_token_validation(client):
         "/auth/validate",
         json={"token": "invalid_token"}
     )
+    # According to your auth route, an invalid token should return a 401
     assert response.status_code == 401
-    assert response.json["message"] == "Invalid token"
+    json_data = response.get_json()
+    # The error key should contain "Invalid token" (or similar)
+    assert json_data.get("error") == "Invalid token"

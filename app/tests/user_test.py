@@ -1,12 +1,13 @@
 import pytest
-from app import app
-from config.db_config import get_db_connection
+from app import create_app
 
 @pytest.fixture
 def client():
+    # Again, use the fixture from conftest.py if possible.
+    app = create_app()
     app.config["TESTING"] = True
-    client = app.test_client()
-    yield client
+    with app.test_client() as client:
+        yield client
 
 def test_create_user_success(client):
     """Test creating a user successfully."""
@@ -21,10 +22,12 @@ def test_create_user_success(client):
         }
     )
     assert response.status_code == 201
-    assert response.json["message"] == "User created successfully"
+    json_data = response.get_json()
+    assert json_data.get("message") == "User created successfully"
 
 def test_create_user_duplicate(client):
     """Test that creating a user with an existing email fails."""
+    # Create the user for the first time
     client.post(
         "/user/create",
         json={
@@ -35,6 +38,7 @@ def test_create_user_duplicate(client):
             "role": 1
         }
     )
+    # Attempt to create again
     response = client.post(
         "/user/create",
         json={
@@ -46,7 +50,8 @@ def test_create_user_duplicate(client):
         }
     )
     assert response.status_code == 400
-    assert response.json["message"] == "User already exists"
+    json_data = response.get_json()
+    assert json_data.get("message") == "User already exists"
 
 def test_create_user_missing_field(client):
     """Test that missing a required field results in a 400 error."""
@@ -60,4 +65,5 @@ def test_create_user_missing_field(client):
         }
     )
     assert response.status_code == 400
-    assert "Missing or empty field" in response.json["message"]
+    json_data = response.get_json()
+    assert "Missing or empty field" in json_data.get("message", "")

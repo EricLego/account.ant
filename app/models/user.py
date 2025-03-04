@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, Boolean, Date
 import bcrypt
 
 class User(db.Model):
-    __tablename__ = "users"
+    __tablename__ = "Users"
     __table_args__ = {"extend_existing": True}
 
     user_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -18,7 +18,6 @@ class User(db.Model):
     suspend_end = Column(Date, nullable=True)
     password_hash = Column(String(255), nullable=False)
 
-    # Use simple class names for relationship references
     accounts = db.relationship(
         "Account",
         back_populates="user",
@@ -58,4 +57,5 @@ class User(db.Model):
         return bcrypt.checkpw(password.encode("utf-8"), self.password_hash.encode("utf-8"))
 
     def __repr__(self):
-        return f"<User {self.user_id}: {self.first_name} {self.last_name} ({'Active' if self.status else 'Suspended'})>"
+        status = "Active" if self.status else "Suspended"
+        return f"<User {self.user_id}: {self.first_name} {self.last_name} ({status})>"

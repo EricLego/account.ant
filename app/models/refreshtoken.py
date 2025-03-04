@@ -4,11 +4,11 @@ from datetime import datetime
 import bcrypt
 
 class RefreshToken(db.Model):
-    __tablename__ = "RefreshTokens"
+    __tablename__ = "refreshtokens"  # using lowercase table name
     __table_args__ = {"extend_existing": True}
 
     token_id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("Users.user_id"), nullable=False)
     token_hash = Column(String(255), nullable=False)
     creation_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     expiry_time = Column(DateTime, nullable=False)
@@ -16,7 +16,7 @@ class RefreshToken(db.Model):
     user = db.relationship("User", back_populates="refresh_tokens")
 
     def __repr__(self) -> str:
-        return f"<RefreshToken(user_id={self.user_id}, token_id={self.token_id}, expiry_time={self.expiry_time})>"
+        return f"<RefreshToken user_id={self.user_id} token_id={self.token_id} expires={self.expiry_time}>"
 
     @staticmethod
     def create_token_hash(token: str) -> str:

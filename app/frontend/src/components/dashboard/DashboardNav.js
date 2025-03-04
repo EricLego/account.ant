@@ -1,5 +1,6 @@
+// src/components/dashboard/DashboardNav.js
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./DashboardNav.css";
 
 import { FaHome } from "react-icons/fa";
@@ -7,7 +8,6 @@ import { BiSolidReport } from "react-icons/bi";
 import { FaUsersCog } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
-
 
 const DashboardNav = () => {
   const navigate = useNavigate();
@@ -23,56 +23,56 @@ const DashboardNav = () => {
   return (
     <aside className="dashboard-nav">
       <div className="nav-brand">
-        <img className="brand-logo" src="/accountantlogo.png" alt="Logo"/>
+        <img className="brand-logo" src="/accountantlogo.png" alt="Logo" />
       </div>
 
       <nav className="nav-links">
         <ul>
           <li>
-            <a href="/home" className="nav-item">
+            <Link to="/home" className="nav-item">
               <span className="nav-icon">
                 <FaHome />
               </span>
               <span>Dashboard</span>
-            </a>
+            </Link>
           </li>
 
           {role === "Administrator" && (
             <>
-            <li>
-              <a href="/user-management" className="nav-item">
-                <span className="nav-icon">
-                  <FaUsersCog/>
-                </span>
-                <span>User Management</span>
-              </a>
-            </li>
-            <li>
-              <a href="/admin-reports" className="nav-item">
-                <span className="nav-icon">
-                  <BiSolidReport />
-                </span>
-                <span>Admin Reports</span>
-              </a>
-            </li>
-          </>
+              <li>
+                <Link to="/user-management" className="nav-item">
+                  <span className="nav-icon">
+                    <FaUsersCog />
+                  </span>
+                  <span>User Management</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin-reports" className="nav-item">
+                  <span className="nav-icon">
+                    <BiSolidReport />
+                  </span>
+                  <span>Admin Reports</span>
+                </Link>
+              </li>
+            </>
           )}
 
           <li>
-            <a href="/profile" className="nav-item">
+            <Link to="/profile" className="nav-item">
               <span className="nav-icon">
                 <FaUser />
               </span>
               <span>Profile</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/reset-password" className="nav-item">
+            <Link to="/reset-password" className="nav-item">
               <span className="nav-icon">
                 <RiLockPasswordFill />
               </span>
               <span>Change Password</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

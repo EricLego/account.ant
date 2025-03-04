@@ -1,6 +1,6 @@
 // src/components/Login/ForgotPassword.js
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../api/api"; // Use the centralized API module
 import "./Auth.css";
 
 const ForgotPassword = () => {
@@ -14,9 +14,7 @@ const ForgotPassword = () => {
     setMessage("");
 
     try {
-      const response = await axios.post("/auth/forgot-password", {
-        email,
-      });
+      await api.forgotPassword({ email });
       setMessage("Reset link sent! Check your email.");
     } catch (err) {
       console.error(err);
@@ -37,10 +35,14 @@ const ForgotPassword = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button type="submit" className="auth-button">Send Reset Link</button>
+          <button type="submit" className="auth-button">
+            Send Reset Link
+          </button>
         </form>
         <p className="auth-footer">
-          <a href="/login" className="auth-link">Back to Login</a>
+          <a href="/login" className="auth-link">
+            Back to Login
+          </a>
         </p>
       </div>
     </div>

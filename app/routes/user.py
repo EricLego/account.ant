@@ -1,13 +1,13 @@
 from flask import Blueprint, request, jsonify
-from config.db_config import get_db_connection
-from models.user import User
+from app.config.config import get_db_connection
+from app.models.user import User
 from datetime import datetime
 
 user_bp = Blueprint('user', __name__)
 
 @user_bp.route('/user/create', methods=['POST'])
 def create_user():
-    db = get_db_connection()
+    db_session = get_db_connection()
     try:
         data = request.get_json()
 
@@ -18,7 +18,7 @@ def create_user():
                 return jsonify({"message": f"Missing or empty field: {field}"}), 400
 
         # Check for duplicate email
-        existing_user = db.query(User).filter_by(email=data["email"]).first()
+        existing_user = db_session.query(User).filter_by(email=data["email"]).first()
         if existing_user:
             return jsonify({"message": "User already exists"}), 400
 
@@ -41,14 +41,14 @@ def create_user():
             status=True
         )
 
-        db.add(new_user)
-        db.commit()
+        db_session.add(new_user)
+        db_session.commit()
 
         return jsonify({"message": "User created successfully"}), 201
 
     except Exception as e:
         print(f"ERROR: {str(e)}")
-        db.rollback()
+        db_session.rollback()
         return jsonify({"message": f"Internal Server Error: {str(e)}"}), 500
     finally:
-        db.close()
+        db_session.close()

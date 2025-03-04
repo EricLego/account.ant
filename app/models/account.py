@@ -6,7 +6,7 @@ class Account(db.Model):
     __table_args__ = {"extend_existing": True}
 
     account_no = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("Users.user_id"), nullable=False)
     account_name = Column(String(50), nullable=False)
     description = Column(Text, nullable=True)
     normal_side = Column(Boolean, nullable=True)
@@ -17,11 +17,10 @@ class Account(db.Model):
     debit = Column(Numeric(10, 2), nullable=False)
     credit = Column(Numeric(10, 2), nullable=False)
     balance = Column(Numeric(10, 2), nullable=False)
-    order = Column(String(50), nullable=True)
+    order = Column(String(50), nullable=True)  # Consider renaming if it conflicts with reserved words.
     statement = Column(Text, nullable=True)
     comment = Column(Text, nullable=True)
 
-    # Simple relationship references
     user = db.relationship("User", back_populates="accounts")
     events = db.relationship("Event", back_populates="account")
     transactions = db.relationship(
@@ -30,3 +29,6 @@ class Account(db.Model):
         cascade="all, delete-orphan",
         lazy="dynamic"
     )
+
+    def __repr__(self):
+        return f"<Account {self.account_no}: {self.account_name}>"

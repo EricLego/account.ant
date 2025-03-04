@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.utils.auth import token_required
-from app.models import db
+from app.utils.auth import token_required  # Assumes token_required decorator is implemented
 from app.models.user import User
 
 dashboard_bp = Blueprint("dashboard", __name__, url_prefix="/dashboard")

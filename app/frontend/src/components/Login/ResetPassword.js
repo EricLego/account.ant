@@ -1,7 +1,7 @@
 // src/components/Login/ResetPassword.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api/api"; // Use centralized API module
 import "./Auth.css";
 
 const ResetPassword = () => {
@@ -25,14 +25,8 @@ const ResetPassword = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("/auth/update-password", {
-        oldPassword,
-        newPassword,
-        token
-      });
-
+      await api.updatePassword({ oldPassword, newPassword, token });
       setMessage("Password updated successfully!");
-
       setTimeout(() => {
         navigate("/login");
       }, 2000);
@@ -70,10 +64,14 @@ const ResetPassword = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <button type="submit" className="auth-button">Update Password</button>
+          <button type="submit" className="auth-button">
+            Update Password
+          </button>
         </form>
         <p className="auth-footer">
-          <a href="/login" className="auth-link">Back to Login</a>
+          <a href="/login" className="auth-link">
+            Back to Login
+          </a>
         </p>
       </div>
     </div>
