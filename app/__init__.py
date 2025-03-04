@@ -24,7 +24,7 @@ def create_app():
     app.config.from_object(Config)
     
     # Debug: Confirm that the SQLALCHEMY_DATABASE_URI is loaded.
-    print("App SQLALCHEMY_DATABASE_URI:", app.config.get("SQLALCHEMY_DATABASE_URI"))
+    # print("App SQLALCHEMY_DATABASE_URI:", app.config.get("SQLALCHEMY_DATABASE_URI"))
     
     # Initialize extensions.
     db.init_app(app)

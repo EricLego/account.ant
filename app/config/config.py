@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_sqlalchemy_database_uri():
-    """Constructs a secure SQLAlchemy database URI for Azure SQL."""
     db_driver = os.getenv("DB_DRIVER", "ODBC Driver 18 for SQL Server")
     db_server = os.getenv("DB_SERVER", "account-ant.database.windows.net")  # Removed `tcp:`
     db_port = "1433"  # Azure SQL default port
@@ -17,7 +16,6 @@ def get_sqlalchemy_database_uri():
     db_trust_cert = os.getenv("DB_TRUST_SERVER_CERT", "no")
     db_timeout = os.getenv("DB_TIMEOUT", "30")
 
-    # Support for Active Directory authentication
     auth_method = os.getenv("DB_AUTH_METHOD", "password")  # Options: "password" or "azure_ad"
 
     if auth_method == "azure_ad":

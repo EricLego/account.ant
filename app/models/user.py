@@ -2,7 +2,7 @@ from app.extensions import db
 from sqlalchemy import Column, Integer, String, Boolean, Date
 import bcrypt
 
-class User(db.Model):
+class Users(db.Model):
     __tablename__ = "Users"
     __table_args__ = {"extend_existing": True}
 
