@@ -7,12 +7,8 @@ dashboard_bp = Blueprint("dashboard", __name__, url_prefix="/dashboard")
 @dashboard_bp.route("/", methods=["GET"])
 @token_required
 def get_dashboard():
-    user = User.query.get(request.user_id)
-    
-    if not user:
-        return jsonify({"error": "User not found"}), 404
-
     return jsonify({
-        "message": f"Welcome to your dashboard, {user.first_name}!",
-        "role": user.role
+        "message": f"Welcome to your dashboard!",
+        "user_id": request.user_id,
+        "role": request.user_role
     }), 200

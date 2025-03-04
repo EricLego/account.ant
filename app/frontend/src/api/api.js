@@ -1,5 +1,5 @@
 // src/api/api.js
-import axios from 'axios';
+import axios from "axios";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://127.0.0.1:5000';
 
@@ -13,6 +13,10 @@ export const approveUser = (approvalData) => {
 
 export const login = (credentials) => {
   return axios.post(`${API_BASE_URL}/auth/login`, credentials);
+};
+
+export const validateToken = (token) => {
+  return axios.post(`${API_BASE_URL}/auth/validate`, { token });
 };
 
 export const forgotPassword = (data) => {
@@ -48,6 +52,7 @@ export default {
   signupRequest,
   approveUser,
   login,
+  validateToken,
   forgotPassword,
   updatePassword,
   updateUser,

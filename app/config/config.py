@@ -48,6 +48,8 @@ class Config:
     DEBUG = os.getenv("DEBUG", "True").lower() == "true"
     SQLALCHEMY_DATABASE_URI = get_sqlalchemy_database_uri()
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    JWT_EXPIRY_HOURS = int(os.getenv("JWT_EXPIRY_HOURS", 1))  # Default 1 hour
+
 
 def get_db_connection():
     """Returns the database session."""

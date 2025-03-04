@@ -22,7 +22,11 @@ def create_user():
         if existing_user:
             return jsonify({"message": "User already exists"}), 400
 
-        hashed_password = User.hash_password(data["password"])
+        password = data.get("password")
+        if not password:
+            return jsonify({"message": "Password is required"}), 400
+
+        hashed_password = User.hash_password(password)
 
         # Convert string dates to datetime.date
         def parse_date(date_str):

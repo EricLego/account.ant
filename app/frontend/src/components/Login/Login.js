@@ -20,16 +20,23 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
+  
     try {
       const response = await login({ email, password });
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role);
-      navigate("/home"); // Updated to navigate to "/home"
+  
+      // Save user details
+      const user = { 
+        username: "John Doe", // Or fetch the user details from the response if available
+        profilePic: "/profile-pic.jpg" // Mock profile pic
+      };
+      localStorage.setItem("user", JSON.stringify(user));
+  
+      navigate("/home"); // Redirect to home/dashboard
     } catch (err) {
       console.error("Login failed", err);
-
-      // If err.response exists, we have an HTTP error
+  
       if (err.response) {
         if (err.response.status === 401) {
           setError("Invalid email or password. Please try again.");
@@ -37,14 +44,13 @@ const Login = () => {
           setError("Server error. Please try again later.");
         }
       } else {
-        // No response was received: bypass network error for testing
         console.warn("Bypassing network error for testing purposes.");
         localStorage.setItem("token", "mock-token");
         localStorage.setItem("role", "regular"); // or any role you prefer
         navigate("/home");
       }
     }
-  };
+  };  
 
   return (
     <div className="auth-container">

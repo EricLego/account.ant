@@ -1,6 +1,7 @@
 import jwt
 import os
 from flask import request, jsonify
+from flask import current_app
 from functools import wraps
 
 SECRET_KEY = os.getenv("SECRET_KEY", "default_secret")

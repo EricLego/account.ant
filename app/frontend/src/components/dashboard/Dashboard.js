@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Dashboard.css"; // Make sure this file exists in the same directory
+import "./Dashboard.css"; // Ensure this file exists in the same directory
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is stored in localStorage
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    // Fetch token and user info from localStorage
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // Redirect to login if no token is found
     } else {
-      navigate("/login"); // Redirect to login if no user is found
+      // Fetch user data from the backend if needed
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser)); // Setting user data
+      } else {
+        navigate("/login");
+      }
     }
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("user"); // Remove user from localStorage
+    localStorage.removeItem("user"); // Remove user info from localStorage
+    localStorage.removeItem("token"); // Remove token
     navigate("/login"); // Redirect to login page
   };
 

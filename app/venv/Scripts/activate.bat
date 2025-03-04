@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\ericl\Documents\Code\account.ant\account.ant\app\venv
+set VIRTUAL_ENV=C:\Users\ericl\Documents\Code\account.ant\account.ant-2\app\venv
 
 if not defined PROMPT set PROMPT=$P$G
 

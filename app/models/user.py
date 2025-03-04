@@ -1,61 +1,34 @@
 from app.extensions import db
-from sqlalchemy import Column, Integer, String, Boolean, Date
-import bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
 
-class Users(db.Model):
+class User(db.Model):
     __tablename__ = "Users"
-    __table_args__ = {"extend_existing": True}
 
-    user_id = Column(Integer, primary_key=True, autoincrement=True)
-    first_name = Column(String(50), nullable=False)
-    last_name = Column(String(50), nullable=False)
-    birth_date = Column(Date, nullable=True)
-    email = Column(String(100), unique=True, nullable=False)
-    hire_date = Column(Date, nullable=True)
-    role = Column(Integer, nullable=False)
-    status = Column(Boolean, default=True)
-    suspend_start = Column(Date, nullable=True)
-    suspend_end = Column(Date, nullable=True)
-    password_hash = Column(String(255), nullable=False)
+    user_id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(32), nullable=False)
+    last_name = db.Column(db.String(32), nullable=False)
+    birth_date = db.Column(db.Date, nullable=False)
+    email = db.Column(db.String(64), unique=True, nullable=False)
+    hire_date = db.Column(db.Date, nullable=False)
+    role = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.Boolean, nullable=False, default=True)
+    suspend_start = db.Column(db.Date, nullable=True)
+    suspend_end = db.Column(db.Date, nullable=True)
+    password_hash = db.Column(db.String(255), nullable=False)
 
-    accounts = db.relationship(
-        "Account",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        lazy="dynamic"
-    )
-    access_tokens = db.relationship(
-        "AccessToken",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        lazy="dynamic"
-    )
-    refresh_tokens = db.relationship(
-        "RefreshToken",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        lazy="dynamic"
-    )
-    transactions = db.relationship(
-        "Transaction",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        lazy="dynamic"
-    )
-    events = db.relationship(
-        "Event",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        lazy="dynamic"
-    )
-
-    @staticmethod
-    def hash_password(password: str) -> str:
-        return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
-
-    def verify_password(self, password: str) -> bool:
-        return bcrypt.checkpw(password.encode("utf-8"), self.password_hash.encode("utf-8"))
+    accounts = db.relationship("Account", back_populates="user", cascade="all, delete-orphan")
+    transactions = db.relationship("Transaction", back_populates="user")
+    events = db.relationship("Event", back_populates="user")
+    tokens = db.relationship("Token", back_populates="user", cascade="all, delete-orphan")
+    security_questions = db.relationship("SecurityQuestion", back_populates="user")
 
     def __repr__(self):
-        status = "Active" if self.status else "Suspended"
-        return f"<User {self.user_id}: {self.first_name} {self.last_name} ({status})>"
+        return f"<User {self.first_name} {self.last_name}>"
+
+    @staticmethod
+    def hash_password(password):
+        return generate_password_hash(password)
+
+    @staticmethod
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
