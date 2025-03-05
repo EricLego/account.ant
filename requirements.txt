@@ -1,1 +1,7 @@
-
+flask==2.3.2
+pyjwt==2.8.0
+werkzeug==2.3.7
+pyodbc==4.0.39
+python-dotenv==1.0.0
+flask-cors==4.0.0
+azure-identity==1.15.0
