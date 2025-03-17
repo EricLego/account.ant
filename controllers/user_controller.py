@@ -14,10 +14,10 @@ def view_users():
     connect.close()
     
 #Create new user/assign their role
-def create_user(user_id, first_name, last_name, birth_date, email, hire_date, role, status):
+def create_user(user_id, username, first_name, last_name, birth_date, email, hire_date, role, status):
     cursor = connect.cursor()
-    query = "INSERT INTO Users (user_id, first_name, last_name, birth_date, email, hire_date, role, status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-    cursor.execute(query, (user_id, first_name, last_name, birth_date, email, hire_date, role, status))
+    query = "INSERT INTO Users (user_id, username, first_name, last_name, birth_date, email, hire_date, role, status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    cursor.execute(query, (user_id, username, first_name, last_name, birth_date, email, hire_date, role, status))
     connect.commit()
     cursor.close()
     connect.close()
